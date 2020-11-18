@@ -1,0 +1,64 @@
+stages:
+  - dbuild_push_amd64
+  - dbuild_push_arm64
+  - dbuild_push_s390x
+  - dbuild_push_386
+  - dbuild_push_arm/v7
+  - dbuild_push_mips64le
+  - dbuild_push_ppc64le
+
+before_script:
+  - DOCKERHUB='noxinmortus'
+  - VERSION=$(grep 'Version' README.md | awk -F ' ' '{ print $NF }')
+  - echo ${DOCKERHUB_PASSWORD} | docker login -u ${DOCKERHUB_USER} --password-stdin
+
+.build_template:
+  allow_failure: true
+  retry: 1
+  tags:
+    - docker
+  only:
+    refs:
+      - master
+
+build_amd64:
+  extends: .build_template
+  stage: dbuild_push_amd64
+  script:
+    - docker buildx build --build-arg GITHUB_USER=${GITHUB_USER} --build-arg GITHUB_REPOSITORY=${CI_PROJECT_NAME} --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} -t ${DOCKERHUB}/${CI_PROJECT_NAME}:latest -t ${DOCKERHUB}/${CI_PROJECT_NAME}:${VERSION} --platform=linux/amd64 .
+
+build_arm64:
+  extends: .build_template
+  stage: dbuild_push_arm64
+  script:
+    - docker buildx build --build-arg GITHUB_USER=${GITHUB_USER} --build-arg GITHUB_REPOSITORY=${CI_PROJECT_NAME} --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} -t ${DOCKERHUB}/${CI_PROJECT_NAME}:latest -t ${DOCKERHUB}/${CI_PROJECT_NAME}:${VERSION} --platform=linux/arm64 .
+
+build_s390x:
+  extends: .build_template
+  stage: dbuild_push_s390x
+  script:
+    - docker buildx build --build-arg GITHUB_USER=${GITHUB_USER} --build-arg GITHUB_REPOSITORY=${CI_PROJECT_NAME} --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} -t ${DOCKERHUB}/${CI_PROJECT_NAME}:latest -t ${DOCKERHUB}/${CI_PROJECT_NAME}:${VERSION} --platform=linux/s390x .
+
+build_386:
+  extends: .build_template
+  stage: dbuild_push_386
+  script:
+    - docker buildx build --build-arg GITHUB_USER=${GITHUB_USER} --build-arg GITHUB_REPOSITORY=${CI_PROJECT_NAME} --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} -t ${DOCKERHUB}/${CI_PROJECT_NAME}:latest -t ${DOCKERHUB}/${CI_PROJECT_NAME}:${VERSION} --platform=linux/386 .
+
+build_arm/v7:
+  extends: .build_template
+  stage: dbuild_push_arm/v7
+  script:
+    - docker buildx build --build-arg GITHUB_USER=${GITHUB_USER} --build-arg GITHUB_REPOSITORY=${CI_PROJECT_NAME} --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} -t ${DOCKERHUB}/${CI_PROJECT_NAME}:latest -t ${DOCKERHUB}/${CI_PROJECT_NAME}:${VERSION} --platform=linux/arm/v7 .
+
+build_mips64le:
+  extends: .build_template
+  stage: dbuild_push_mips64le
+  script:
+    - docker buildx build --build-arg GITHUB_USER=${GITHUB_USER} --build-arg GITHUB_REPOSITORY=${CI_PROJECT_NAME} --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} -t ${DOCKERHUB}/${CI_PROJECT_NAME}:latest -t ${DOCKERHUB}/${CI_PROJECT_NAME}:${VERSION} --platform=linux/mips64le .
+
+build_ppc64le:
+  extends: .build_template
+  stage: dbuild_push_ppc64le
+  script:
+    - docker buildx build --build-arg GITHUB_USER=${GITHUB_USER} --build-arg GITHUB_REPOSITORY=${CI_PROJECT_NAME} --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} -t ${DOCKERHUB}/${CI_PROJECT_NAME}:latest -t ${DOCKERHUB}/${CI_PROJECT_NAME}:${VERSION} --platform=linux/ppc64le .
