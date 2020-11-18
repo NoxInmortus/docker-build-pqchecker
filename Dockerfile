@@ -7,8 +7,7 @@ FROM debian:buster-slim
 LABEL maintainer='NoxInmortus'
 
 ENV PQCHECKER_VERSION='2.0.0' \
-    LDAP_VERSION='2.4.50' \
-    GOPATH='/usr/local/go'
+    LDAP_VERSION='2.4.50'
 
 ARG GITHUB_USER
 ARG GITHUB_REPOSITORY
@@ -17,10 +16,10 @@ ARG GITHUB_TOKEN
 ADD github-release.sh /
 
 RUN export ARCH=$(dpkg --print-architecture | awk -F- '{ print $NF }') \
-  && mkdir -pv /usr/share/man/man1 /tmp/openldap ${GOPATH} \
+  && mkdir -pv /usr/share/man/man1 /tmp/openldap \
   && echo 'deb http://deb.debian.org/debian buster-backports main' >> /etc/apt/sources.list \
   && apt-get update \
-  && apt-get install --no-install-recommends --no-install-suggests -qy -t buster-backports apt-transport-https gnupg golang-go git gzip \
+  && apt-get install --no-install-recommends --no-install-suggests -qy -t buster-backports apt-transport-https gnupg git gzip \
       curl openssl ca-certificates file gcc make checkinstall \
       libc6-dev libssl-dev libdb-dev libltdl-dev libsasl2-dev libsasl2-modules-ldap \
   && update-ca-certificates --fresh \
@@ -28,8 +27,6 @@ RUN export ARCH=$(dpkg --print-architecture | awk -F- '{ print $NF }') \
   && echo 'deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ buster main' >> /etc/apt/sources.list \
   && apt-get update \
   && apt-get install --no-install-recommends --no-install-suggests -qy adoptopenjdk-11-hotspot \
-  && chown -v root:staff ${GOPATH} \
-  && go get -v github.com/github-release/github-release \
   && curl -sSLk --retry 5 -O https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-${LDAP_VERSION}.tgz \
   && tar -xvzf openldap-${LDAP_VERSION}.tgz -C /tmp/openldap --strip-components=1 \
   && cd /tmp/openldap \
