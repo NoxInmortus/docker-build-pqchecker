@@ -25,7 +25,7 @@ gh_create_release:
   stage: gh_create_release
   script:
     - chmod +x gh-release.sh
-    - GITHUB_RELEASE_ID=$(bash gh-release.sh)
+    - bash gh-release.sh
   tags:
     - docker
   only:
