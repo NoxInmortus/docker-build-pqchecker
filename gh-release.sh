@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
-GITHUB_TOKEN
 PQCHECKER_VERSION=${1}
 GITHUB_REPOSITORY=${CI_PROJECT_NAME}
 
