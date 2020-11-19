@@ -1,12 +1,12 @@
 stages:
   - gh_create_release
-  - dbuild_push_amd64
-  - dbuild_push_arm64
-  - dbuild_push_s390x
   - dbuild_push_386
-  - dbuild_push_arm/v7
   - dbuild_push_mips64le
+  - dbuild_push_arm/v7
+  - dbuild_push_s390x
   - dbuild_push_ppc64le
+  - dbuild_push_arm64
+  - dbuild_push_amd64
 
 before_script:
   - DOCKERHUB='noxinmortus'
@@ -26,24 +26,11 @@ gh_create_release:
   script:
     - chmod +x gh-release.sh
     - GITHUB_RELEASE_ID=$(bash gh-release.sh)
-    - echo 'GITHUB_RELEASE_ID=' ${GITHUB_RELEASE_ID}
   tags:
     - docker
   only:
     refs:
       - master
-
-build_386:
-  extends: .build_template
-  stage: dbuild_push_386
-  script:
-    - docker buildx build --build-arg GITHUB_USER=${GITHUB_USER} --build-arg GITHUB_REPOSITORY=${CI_PROJECT_NAME} --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} -t ${DOCKERHUB}/${CI_PROJECT_NAME}:latest -t ${DOCKERHUB}/${CI_PROJECT_NAME}:${VERSION} --platform=linux/386 -f Dockerfile.openjdk .
-
-build_mips64le:
-  extends: .build_template
-  stage: dbuild_push_mips64le
-  script:
-    - docker buildx build --build-arg GITHUB_USER=${GITHUB_USER} --build-arg GITHUB_REPOSITORY=${CI_PROJECT_NAME} --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} -t ${DOCKERHUB}/${CI_PROJECT_NAME}:latest -t ${DOCKERHUB}/${CI_PROJECT_NAME}:${VERSION} --platform=linux/mips64le -f Dockerfile.openjdk .
 
 build_arm/v7:
   extends: .build_template
@@ -74,3 +61,15 @@ build_amd64:
   stage: dbuild_push_amd64
   script:
     - docker buildx build --build-arg GITHUB_USER=${GITHUB_USER} --build-arg GITHUB_REPOSITORY=${CI_PROJECT_NAME} --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} -t ${DOCKERHUB}/${CI_PROJECT_NAME}:latest -t ${DOCKERHUB}/${CI_PROJECT_NAME}:${VERSION} --platform=linux/amd64 .
+
+build_386:
+  extends: .build_template
+  stage: dbuild_push_386
+  script:
+    - docker buildx build --build-arg GITHUB_USER=${GITHUB_USER} --build-arg GITHUB_REPOSITORY=${CI_PROJECT_NAME} --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} -t ${DOCKERHUB}/${CI_PROJECT_NAME}:latest -t ${DOCKERHUB}/${CI_PROJECT_NAME}:${VERSION} --platform=linux/386 -f Dockerfile.openjdk .
+
+build_mips64le:
+  extends: .build_template
+  stage: dbuild_push_mips64le
+  script:
+    - docker buildx build --build-arg GITHUB_USER=${GITHUB_USER} --build-arg GITHUB_REPOSITORY=${CI_PROJECT_NAME} --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} -t ${DOCKERHUB}/${CI_PROJECT_NAME}:latest -t ${DOCKERHUB}/${CI_PROJECT_NAME}:${VERSION} --platform=linux/mips64le -f Dockerfile.openjdk .
