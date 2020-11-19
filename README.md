@@ -21,8 +21,8 @@ Chosen architectures are the supported architectures from the Debian official im
 
 - linux/386
 - linux/amd64
-- linux/arm/v5 : KO
-- linux/arm/v7 : KO
+- linux/arm/v5 : KO (not available yet)
+- linux/arm/v7
 - linux/arm64/v8
 - linux/mips64le
 - linux/ppc64le

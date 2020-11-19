@@ -10,7 +10,7 @@ echo "Release id : ${GITHUB_RELEASE_ID}"
 
 sha1sum /tmp/${GENERATED_FILE}.deb > /tmp/${GENERATED_FILE}.sha1sum
 
-curl -s -XPOST -H "Authorization:token ${GITHUB_TOKEN}" -H "Content-Type:application/octet-stream" --data-binary /tmp/${GENERATED_FILE}.deb https://uploads.github.com/repos/${GITHUB_USER}/${GITHUB_REPOSITORY}/releases/${GITHUB_RELEASE_ID}/assets?name=${GENERATED_FILE}.deb
-curl -s -XPOST -H "Authorization:token ${GITHUB_TOKEN}" -H "Content-Type:application/octet-stream" --data-binary /tmp/${GENERATED_FILE}.sha1sum https://uploads.github.com/repos/${GITHUB_USER}/${GITHUB_REPOSITORY}/releases/${GITHUB_RELEASE_ID}/assets?name=${GENERATED_FILE}.sha1sum
+curl -sSLk --retry 5 -XPOST -H "Authorization:token ${GITHUB_TOKEN}" -H "Content-Type:application/octet-stream" --data-binary /tmp/${GENERATED_FILE}.deb https://uploads.github.com/repos/${GITHUB_USER}/${GITHUB_REPOSITORY}/releases/${GITHUB_RELEASE_ID}/assets?name=${GENERATED_FILE}.deb
+curl -sSLk --retry 5 -XPOST -H "Authorization:token ${GITHUB_TOKEN}" -H "Content-Type:application/octet-stream" --data-binary /tmp/${GENERATED_FILE}.sha1sum https://uploads.github.com/repos/${GITHUB_USER}/${GITHUB_REPOSITORY}/releases/${GITHUB_RELEASE_ID}/assets?name=${GENERATED_FILE}.sha1sum
 
 exit 0
