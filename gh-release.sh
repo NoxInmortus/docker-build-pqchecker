@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+sex -x
 PQCHECKER_VERSION=$(grep 'ENV PQCHECKER_VERSION' Dockerfile |awk -F\' '{ print $2 }')
 GITHUB_REPOSITORY=${CI_PROJECT_NAME}
 GITHUB_RELEASE_NAME="pqChecker v${PQCHECKER_VERSION}"
