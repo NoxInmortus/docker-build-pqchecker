@@ -5,7 +5,7 @@ PQCHECKER_VERSION=$(grep 'ENV PQCHECKER_VERSION' Dockerfile |awk -F\' '{ print $
 GITHUB_REPOSITORY=${CI_PROJECT_NAME}
 GITHUB_RELEASE_NAME="pqChecker v${PQCHECKER_VERSION}"
 
-GITHUB_RELEASES_CHECK=$(curl -s https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPOSITORY}/releases|grep '\"tag_name\"'|wc -l)
+GITHUB_RELEASES_CHECK=$(curl -s https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPOSITORY}/releases|grep 'tag_name'|grep ${PQCHECKER_VERSION}|wc -l)
 
 if [ ${GITHUB_RELEASES_CHECK} -eq 0 ];
   echo 'Creating GITHUB release...'
