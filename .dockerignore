@@ -3,3 +3,4 @@
 .gitlab-ci.yml
 README.md
 LICENSE
+gh-release.sh

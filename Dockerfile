@@ -14,7 +14,7 @@ ARG GITHUB_REPOSITORY
 ARG GITHUB_TOKEN
 ARG GITHUB_RELEASE_ID
 
-ADD github-release.sh /
+ADD gh-push.sh /
 
 RUN export ARCH=$(dpkg --print-architecture | awk -F- '{ print $NF }') \
   && mkdir -pv /usr/share/man/man1 /tmp/openldap \
@@ -44,8 +44,8 @@ RUN export ARCH=$(dpkg --print-architecture | awk -F- '{ print $NF }') \
   && make install \
   && checkinstall -D --install=no -y --pkgname=pqchecker --pkgversion=${PQCHECKER_VERSION} --pkglicense='GNU GPL v3+ license' \
       --pakdir=/tmp --maintainer='NoxInmortus' --requires='slapd' \
-  && chmod +x /github-release.sh \
-  && /github-release.sh \
+  && chmod +x /gh-push.sh \
+  && /gh-push.sh \
   ;
 
 CMD ["/bin/bash"]
