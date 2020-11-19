@@ -4,7 +4,7 @@ set -x
 
 GENERATED_FILE=pqchecker_${PQCHECKER_VERSION}-1_${ARCH}
 
-GITHUB_RELEASE_ID=$(curl -s https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPOSITORY}/releases/latest|grep '\"url\"'|head -n 1|awk -F\" '{ print $(NF-1) }'|awk -F/ '{ print $NF }')
+GITHUB_RELEASE_ID=$(curl -sSLk --retry 5 https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPOSITORY}/releases/latest|grep '\"url\"'|head -n 1|awk -F\" '{ print $(NF-1) }'|awk -F/ '{ print $NF }')
 
 echo "Release id : ${GITHUB_RELEASE_ID}"
 

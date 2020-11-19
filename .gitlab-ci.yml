@@ -1,8 +1,8 @@
 stages:
   - gh_create_release
+  - dbuild_push_arm/v7
   - dbuild_push_386
   - dbuild_push_mips64le
-  - dbuild_push_arm/v7
   - dbuild_push_s390x
   - dbuild_push_ppc64le
   - dbuild_push_arm64

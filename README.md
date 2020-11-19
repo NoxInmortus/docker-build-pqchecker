@@ -1,6 +1,8 @@
 # Docker-build-pqchecker
 
-pqChecker is an OpenLDAP password policy pwdCheckModule. This repository aims to deliver pqChecker packages for all architectures as it's official release is only available for amd64.
+pqChecker is an OpenLDAP password policy pwdCheckModule.
+
+This repository aims to deliver missing pqChecker packages architectures as the official release is only available for amd64.
 
 All credits goes to Abdelamid Meddeb, maintainer of pqChecker :
 - Official repository : https://bitbucket.org/ameddeb/pqchecker
@@ -15,6 +17,8 @@ Find more at :
 
 ## Available Architectures
 
+Chosen architectures are the supported architectures from the Debian official image, as it is used as the base image.
+
 - linux/386
 - linux/amd64
 - linux/arm/v5 : KO
@@ -28,7 +32,7 @@ Find more at :
 
 The Dockerfile uses the `adoptopenjdk-11-hotspot` package by default because there is a unresolved bug with `openjdk-11-jdk` package for the `linux/s390x` and `linux/ppc64le` architectures.
 
-Unfortunately the `adoptopenjdk-11-hotspot` package is not available for `linux/386` and `linux/mips64le` architectures. A secondary Dockerfile named `Dockerfile.openjdk` is used for the builds, and use `openjdk-11-jdk` instead of `adoptopenjdk-11-hotspot`.
+Unfortunately the `adoptopenjdk-11-hotspot` package is not available for `linux/386` and `linux/mips64le` architectures. A secondary Dockerfile named `Dockerfile.openjdk` is used for the builds, and use `openjdk-11-jdk` instead.
 
 ## References :
 
