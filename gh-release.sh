@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+set -x
 PQCHECKER_VERSION=$(grep 'ENV PQCHECKER_VERSION' Dockerfile |awk -F\' '{ print $2 }')
 GITHUB_REPOSITORY=${CI_PROJECT_NAME}
 GITHUB_RELEASE_NAME="pqChecker v${PQCHECKER_VERSION}"
@@ -15,3 +16,5 @@ then
 else
   echo 'GITHUB release not created. A GITHUB release named ${GITHUB_RELEASE_NAME} already exist.'
 fi
+
+exit 0
