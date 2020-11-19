@@ -25,9 +25,8 @@ before_script:
 gh_create_release:
   stage: gh_create_release
   script:
-    - PQCHECKER_VERSION=$(grep 'ENV PQCHECKER_VERSION' Dockerfile |awk -F\' '{ print $2 }')
     - chmod +x gh-release.sh
-    - GITHUB_RELEASE_ID=$(bash gh-release.sh ${PQCHECKER_VERSION})
+    - GITHUB_RELEASE_ID=$(bash gh-release.sh)
     - echo 'GITHUB_RELEASE_ID= ' ${GITHUB_RELEASE_ID}
   tags:
     - docker
