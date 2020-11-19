@@ -27,7 +27,7 @@ build_amd64:
   extends: .build_template
   stage: dbuild_push_amd64
   script:
-    - echo "RELEASE ID : $GITHUB_RELEASE_ID"
+    - 'echo "RELEASE ID : $GITHUB_RELEASE_ID"'
     - docker buildx build --build-arg GITHUB_USER=${GITHUB_USER} --build-arg GITHUB_REPOSITORY=${CI_PROJECT_NAME} --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg GITHUB_RELEASE_ID=${GITHUB_RELEASE_ID} -t ${DOCKERHUB}/${CI_PROJECT_NAME}:latest -t ${DOCKERHUB}/${CI_PROJECT_NAME}:${VERSION} --platform=linux/amd64 .
 
 build_arm64:
