@@ -7,4 +7,4 @@ GITHUB_RELEASE=$(curl -s -XPOST -H "Authorization:token ${GITHUB_TOKEN}" --data 
 
 GITHUB_RELEASE_ID=$(echo "${GITHUB_RELEASE}" | sed -n -e 's/"id":\ \([0-9]\+\),/\1/p' | head -n 1 | sed 's/[[:blank:]]//g')
 
-echo 'RELEASE ID :' ${GITHUB_RELEASE_ID}
+echo ${GITHUB_RELEASE_ID}
