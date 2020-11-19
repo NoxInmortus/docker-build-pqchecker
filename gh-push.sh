@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-PQCHECKER_VERSION=${1}
+
 GENERATED_FILE=pqchecker_${PQCHECKER_VERSION}-1_${ARCH}
 
 echo "Release id : ${GITHUB_RELEASE_ID}"
