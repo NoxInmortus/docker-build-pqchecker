@@ -4,3 +4,5 @@
 README.md
 LICENSE
 gh-release.sh
+Dockerfile
+Dockerfile.openjdk

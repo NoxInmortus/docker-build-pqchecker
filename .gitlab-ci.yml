@@ -10,7 +10,6 @@ stages:
 
 before_script:
   - DOCKERHUB='noxinmortus'
-  - VERSION=$(grep 'Version' README.md | awk -F ' ' '{ print $NF }')
   - echo ${DOCKERHUB_PASSWORD} | docker login -u ${DOCKERHUB_USER} --password-stdin
 
 .build_template:
@@ -27,7 +26,7 @@ gh_create_release:
   script:
     - chmod +x gh-release.sh
     - GITHUB_RELEASE_ID=$(bash gh-release.sh)
-    - echo 'GITHUB_RELEASE_ID= ' ${GITHUB_RELEASE_ID}
+    - echo 'GITHUB_RELEASE_ID=' ${GITHUB_RELEASE_ID}
   tags:
     - docker
   only:
@@ -56,7 +55,7 @@ build_386:
   extends: .build_template
   stage: dbuild_push_386
   script:
-    - docker buildx build --build-arg GITHUB_USER=${GITHUB_USER} --build-arg GITHUB_REPOSITORY=${CI_PROJECT_NAME} --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg GITHUB_RELEASE_ID=${GITHUB_RELEASE_ID} -t ${DOCKERHUB}/${CI_PROJECT_NAME}:latest -t ${DOCKERHUB}/${CI_PROJECT_NAME}:${VERSION} --platform=linux/386 .
+    - docker buildx build --build-arg GITHUB_USER=${GITHUB_USER} --build-arg GITHUB_REPOSITORY=${CI_PROJECT_NAME} --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg GITHUB_RELEASE_ID=${GITHUB_RELEASE_ID} -t ${DOCKERHUB}/${CI_PROJECT_NAME}:latest -t ${DOCKERHUB}/${CI_PROJECT_NAME}:${VERSION} --platform=linux/386 -f Dockerfile.openjdk .
 
 build_arm/v7:
   extends: .build_template
@@ -68,7 +67,7 @@ build_mips64le:
   extends: .build_template
   stage: dbuild_push_mips64le
   script:
-    - docker buildx build --build-arg GITHUB_USER=${GITHUB_USER} --build-arg GITHUB_REPOSITORY=${CI_PROJECT_NAME} --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg GITHUB_RELEASE_ID=${GITHUB_RELEASE_ID} -t ${DOCKERHUB}/${CI_PROJECT_NAME}:latest -t ${DOCKERHUB}/${CI_PROJECT_NAME}:${VERSION} --platform=linux/mips64le .
+    - docker buildx build --build-arg GITHUB_USER=${GITHUB_USER} --build-arg GITHUB_REPOSITORY=${CI_PROJECT_NAME} --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg GITHUB_RELEASE_ID=${GITHUB_RELEASE_ID} -t ${DOCKERHUB}/${CI_PROJECT_NAME}:latest -t ${DOCKERHUB}/${CI_PROJECT_NAME}:${VERSION} --platform=linux/mips64le -f Dockerfile.openjdk .
 
 build_ppc64le:
   extends: .build_template

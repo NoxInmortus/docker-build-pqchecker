@@ -1,8 +1,10 @@
 # Docker-build-pqchecker
 
-This repository aims to deliver pqChecker packages for all architectures.
+pqChecker is an OpenLDAP password policy pwdCheckModule. This repository aims to deliver pqChecker packages for all architectures as it's official release is only available for amd64.
 
-Version 1.0
+All credits goes to Abdelamid Meddeb, maintainer of pqChecker :
+- Official repository : https://bitbucket.org/ameddeb/pqchecker
+- Official website : https://www.meddeb.net/pqchecker
 
 ## Official NoxInmortus repositories
 
@@ -16,19 +18,24 @@ Find more at :
 - linux/386
 - linux/amd64
 - linux/arm/v5 : KO
-- linux/arm/v7
+- linux/arm/v7 : KO
 - linux/arm64/v8
 - linux/mips64le
-- linux/ppc64le : KO
-- linux/s390x : KO
+- linux/ppc64le
+- linux/s390x
 
-## Sources
-- https://bitbucket.org/ameddeb/pqchecker
-- https://www.meddeb.net/pqchecker
-- https://arand263.blogspot.com/2011/11/debian-squeeze-installer-un-serveur.html
-- https://github.com/geerlingguy/ansible-role-java/issues/64
-- https://manpages.debian.org/buster-backports/checkinstall/checkinstall.8.en.html
-- https://github.com/github-release/github-release
+## Dockerfile.openjdk
 
-## License
-GNU GPL v3+ view [LICENSE](LICENSE)
+The Dockerfile uses the `adoptopenjdk-11-hotspot` package by default because there is a unresolved bug with `openjdk-11-jdk` package for the `linux/s390x` and `linux/ppc64le` architectures.
+
+Unfortunately the `adoptopenjdk-11-hotspot` package is not available for `linux/386` and `linux/mips64le` architectures. A secondary Dockerfile named `Dockerfile.openjdk` is used for the builds, and use `openjdk-11-jdk` instead of `adoptopenjdk-11-hotspot`.
+
+## References :
+
+- Missing build dependencies : https://arand263.blogspot.com/2011/11/debian-squeeze-installer-un-serveur.html
+- jdk-11 not installing because of missing directory : https://github.com/geerlingguy/ansible-role-java/issues/64
+- Binary used for building deb packages : https://manpages.debian.org/buster-backports/checkinstall/checkinstall.8.en.html
+- Push github releases through curl : https://medium.com/@systemglitch/continuous-integration-with-jenkins-and-github-release-814904e20776
+
+## [License](LICENSE)
+GNU GPL v3+
