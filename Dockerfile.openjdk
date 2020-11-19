@@ -33,7 +33,7 @@ RUN export ARCH=$(dpkg --print-architecture | awk -F- '{ print $NF }') \
   && cd /tmp/pqchecker \
   && ./adjustdate.bash \
   &&  ./configure LDAPSRC=/tmp/openldap \
-      JAVAHOME=/usr/lib/jvm/adoptopenjdk-11-hotspot-${ARCH} \
+      JAVAHOME=/usr/lib/jvm/java-11-openjdk-${ARCH} \
       libdir=/usr/lib/ldap \
       PARAMDIR=/etc/ldap/pqchecker \
   && make \
