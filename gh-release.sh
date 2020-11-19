@@ -3,7 +3,7 @@ set -euo pipefail
 set -x
 PQCHECKER_VERSION=$(grep 'ENV PQCHECKER_VERSION' Dockerfile |awk -F\' '{ print $2 }')
 GITHUB_REPOSITORY=${CI_PROJECT_NAME}
-GITHUB_RELEASE_NAME="pqChecker v${PQCHECKER_VERSION}"
+GITHUB_RELEASE_NAME="pqChecker v${PQCHECKER_VERSION}-$(date '+%d%m%Y-%Hh%Mm')"
 
 GITHUB_RELEASES_CHECK=$(curl -s https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPOSITORY}/releases|grep 'tag_name'|grep ${PQCHECKER_VERSION}|wc -l)
 
