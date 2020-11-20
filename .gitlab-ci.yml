@@ -23,6 +23,7 @@ before_script:
 
 gh_create_release:
   stage: gh_create_release
+  when: manual
   script:
     - chmod +x gh-release.sh
     - bash gh-release.sh
