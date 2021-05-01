@@ -1,0 +1,34 @@
+---
+name: release
+
+on: [push]
+  # push:
+  #   branches:
+  #     - master
+  #   tags:
+  #     - 'v*.*.*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Variables
+        id: vars
+        run: |
+          PQCHECKER_VERSION='2.0.0'
+          LDAP_VERSION='2.4.57'
+          # Set output parameters.
+          echo ::set-output name=LDAP_VERSION::${LDAP_VERSION}
+          echo ::set-output name=PQCHECKER_VERSION::${PQCHECKER_VERSION}
+
+      - name: Checkout self
+        uses: actions/checkout@v2
+
+      - uses: marvinpinto/action-automatic-releases@latest
+        id: release
+        with:
+          name: pqChecker ${{ steps.vars.outputs.PQCHECKER_VERSION }} for LDAP ${{ steps.vars.outputs.LDAP_VERSION }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          prerelease: false
+          draft: false
+          automatic_release_tag: latest
