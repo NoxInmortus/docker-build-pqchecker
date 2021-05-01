@@ -7,7 +7,7 @@ FROM debian:buster-slim
 LABEL maintainer='NoxInmortus'
 
 ENV PQCHECKER_VERSION='2.0.0' \
-    LDAP_VERSION='2.4.50'
+    LDAP_VERSION='2.4.57'
 
 ARG GITHUB_USER
 ARG GITHUB_REPOSITORY
@@ -22,6 +22,7 @@ RUN export ARCH=$(dpkg --print-architecture | awk -F- '{ print $NF }') \
   && apt-get install --no-install-recommends --no-install-suggests -qy -t buster-backports apt-transport-https gnupg git gzip \
       curl openssl ca-certificates file gcc make checkinstall openjdk-11-jdk \
       libc6-dev libssl-dev libdb-dev libltdl-dev libsasl2-dev libsasl2-modules-ldap \
+      libcurl3-gnutls=7.64.0-4+deb10u2 \
   && update-ca-certificates --fresh \
   && curl -sSLk --retry 5 -O https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-${LDAP_VERSION}.tgz \
   && tar -xvzf openldap-${LDAP_VERSION}.tgz -C /tmp/openldap --strip-components=1 \
