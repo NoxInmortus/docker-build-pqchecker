@@ -32,6 +32,8 @@ build_s390x:
   stage: dbuild
   script:
     - docker buildx build --build-arg GITHUB_USER=${GITHUB_USER} --build-arg GITHUB_REPOSITORY=${CI_PROJECT_NAME} --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} -t ${DOCKERHUB}/${CI_PROJECT_NAME}:latest --platform=linux/s390x .
+  tags:
+    - docker-qemu-backports
 
 build_ppc64le:
   extends: .build_template

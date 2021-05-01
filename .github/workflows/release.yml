@@ -27,7 +27,7 @@ jobs:
       - uses: marvinpinto/action-automatic-releases@latest
         id: release
         with:
-          name: pqChecker ${{ steps.vars.outputs.PQCHECKER_VERSION }} for LDAP ${{ steps.vars.outputs.LDAP_VERSION }}
+          title: pqChecker ${{ steps.vars.outputs.PQCHECKER_VERSION }} for LDAP ${{ steps.vars.outputs.LDAP_VERSION }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           prerelease: false
           draft: false

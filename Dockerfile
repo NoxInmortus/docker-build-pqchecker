@@ -7,7 +7,7 @@ FROM debian:buster-slim
 LABEL maintainer='NoxInmortus'
 
 ENV PQCHECKER_VERSION='2.0.0' \
-    LDAP_VERSION='2.4.50'
+    LDAP_VERSION='2.4.57'
 
 ARG GITHUB_USER
 ARG GITHUB_REPOSITORY
