@@ -17,16 +17,17 @@ Find more at :
 
 ## Available Architectures
 
-Chosen architectures are the supported architectures from the Debian official image, as it is used as the base image.
+Supported architectures are the ones supported by docker buildx & qemu-user-static :
 
-- linux/386
 - linux/amd64
-- linux/arm/v5 : KO (not available yet)
-- linux/arm/v7
 - linux/arm64/v8
-- linux/mips64le
+- linux/riscv64 : KO
 - linux/ppc64le
-- linux/s390x
+- linux/s390x : KO
+- linux/386
+- linux/arm/v6 : KO
+- linux/arm/v7
+- linux/mips64le ??
 
 ## Dockerfile.openjdk
 

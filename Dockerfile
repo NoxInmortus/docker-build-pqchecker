@@ -22,6 +22,7 @@ RUN export ARCH=$(dpkg --print-architecture | awk -F- '{ print $NF }') \
   && apt-get install --no-install-recommends --no-install-suggests -qy -t buster-backports apt-transport-https gnupg git gzip \
       curl openssl ca-certificates file gcc make checkinstall \
       libc6-dev libssl-dev libdb-dev libltdl-dev libsasl2-dev libsasl2-modules-ldap \
+      libcurl3-gnutls=7.64.0-4+deb10u2 \
   && update-ca-certificates --fresh \
   && curl -sSLk --retry 5 https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add - \
   && echo 'deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ buster main' >> /etc/apt/sources.list \
