@@ -12,27 +12,25 @@ All credits goes to Abdelamid Meddeb, maintainer of pqChecker :
 
 Find more at :
 - https://hub.docker.com/u/noxinmortus
-- https://git.tools01.imperium-gaming.fr/public
+- https://git.tools01.noxinmortus.fr/public
 - https://github.com/NoxInmortus?tab=repositories
 
 ## Available Architectures
 
-Chosen architectures are the supported architectures from the Debian official image, as it is used as the base image.
+Supported architectures are :
 
-- linux/386
 - linux/amd64
-- linux/arm/v5 : KO (not available yet)
-- linux/arm/v7
 - linux/arm64/v8
-- linux/mips64le
 - linux/ppc64le
 - linux/s390x
+- linux/386
+- linux/arm/v6
+- linux/arm/v7
+- linux/mips64le
 
-## Dockerfile.openjdk
+## Dockerfiles
 
-The Dockerfile uses the `adoptopenjdk-11-hotspot` package by default because there is a unresolved bug with `openjdk-11-jdk` package for the `linux/s390x` and `linux/ppc64le` architectures.
-
-Unfortunately the `adoptopenjdk-11-hotspot` package is not available for `linux/386` and `linux/mips64le` architectures. A secondary Dockerfile named `Dockerfile.openjdk` is used for the builds, and use `openjdk-11-jdk` instead.
+This image uses the `openjdk-11-jdk` package by default but there is a unresolved bug with it for `linux/s390x` and `linux/ppc64le` architectures. To solve that, those two architectures use `adoptopenjdk-11-hotspot` package.
 
 ## References :
 

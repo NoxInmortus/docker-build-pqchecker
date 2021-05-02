@@ -1,0 +1,23 @@
+---
+name: release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout self
+        uses: actions/checkout@v2
+
+      - uses: marvinpinto/action-automatic-releases@latest
+        id: release
+        with:
+          title: Multiarch pqChecker packages
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          prerelease: false
+          draft: false
+          automatic_release_tag: ${{ github.ref }}
