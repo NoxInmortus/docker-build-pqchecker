@@ -17,17 +17,16 @@ Find more at :
 
 ## Available Architectures
 
-Supported architectures are the ones supported by docker buildx & qemu-user-static :
+Supported architectures are :
 
 - linux/amd64
 - linux/arm64/v8
-- linux/riscv64 : KO
 - linux/ppc64le
-- linux/s390x : KO
+- linux/s390x
 - linux/386
 - linux/arm/v6 : KO
 - linux/arm/v7
-- linux/mips64le ??
+- linux/mips64le
 
 ## Dockerfile.openjdk
 
