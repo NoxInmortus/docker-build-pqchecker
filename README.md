@@ -12,7 +12,7 @@ All credits goes to Abdelamid Meddeb, maintainer of pqChecker :
 
 Find more at :
 - https://hub.docker.com/u/noxinmortus
-- https://git.tools01.imperium-gaming.fr/public
+- https://git.tools01.noxinmortus.fr/public
 - https://github.com/NoxInmortus?tab=repositories
 
 ## Available Architectures
@@ -28,7 +28,7 @@ Supported architectures are :
 - linux/arm/v7
 - linux/mips64le
 
-## Dockerfile.openjdk
+## Dockerfiles
 
 This image uses the `openjdk-11-jdk` package by default but there is a unresolved bug with it for `linux/s390x` and `linux/ppc64le` architectures. To solve that, those two architectures use `adoptopenjdk-11-hotspot` package.
 
