@@ -64,3 +64,9 @@ build_mips64le:
   stage: dbuild
   script:
     - docker buildx build --build-arg GITHUB_USER=${GITHUB_USER} --build-arg GITHUB_REPOSITORY=${CI_PROJECT_NAME} --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} -t ${DOCKERHUB}/${CI_PROJECT_NAME}:latest --platform=linux/mips64le -f Dockerfile.openjdk .
+
+build_arm/v6:
+  extends: .build_template
+  stage: dbuild
+  script:
+    - docker buildx build --build-arg GITHUB_USER=${GITHUB_USER} --build-arg GITHUB_REPOSITORY=${CI_PROJECT_NAME} --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} -t ${DOCKERHUB}/${CI_PROJECT_NAME}:latest --platform=linux/arm/v6 -f Dockerfile.openjdk .
