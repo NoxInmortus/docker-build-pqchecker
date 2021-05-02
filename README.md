@@ -24,15 +24,13 @@ Supported architectures are :
 - linux/ppc64le
 - linux/s390x
 - linux/386
-- linux/arm/v6 : KO
+- linux/arm/v6
 - linux/arm/v7
 - linux/mips64le
 
 ## Dockerfile.openjdk
 
-The Dockerfile uses the `adoptopenjdk-11-hotspot` package by default because there is a unresolved bug with `openjdk-11-jdk` package for the `linux/s390x` and `linux/ppc64le` architectures.
-
-Unfortunately the `adoptopenjdk-11-hotspot` package is not available for `linux/386` and `linux/mips64le` architectures. A secondary Dockerfile named `Dockerfile.openjdk` is used for the builds, and use `openjdk-11-jdk` instead.
+This image uses the `openjdk-11-jdk` package by default but there is a unresolved bug with it for `linux/s390x` and `linux/ppc64le` architectures. To solve that, those two architectures use `adoptopenjdk-11-hotspot` package.
 
 ## References :
 
